@@ -1,0 +1,135 @@
+---
+title: 'Pré-requisitos'
+description: 'Configuração do ambiente para rodar a aplicação Polvo'
+---
+
+# Configurando o Ambiente
+
+Antes de clonar o repositório, é necessário **configurar o ambiente** da sua máquina. Para isso, você deverá instalar as seguintes ferramentas:
+
+<CardGroup>
+  <Card title="Visual Studio Code" icon="code" href="https://code.visualstudio.com/download" />
+  <Card title="Node.js 14" icon="node" href="#como-instalar-e-configurar-o-node-14" />
+  <Card title="Yarn" icon="yarn" href="#como-instalar-e-configurar-o-yarn" />
+  <Card title="Git" icon="git" href="#como-instalar-e-configurar-o-git" />
+  <Card title="MongoDB" icon="database" href="https://www.mongodb.com/try/download/community" />
+  <Card title="Docker" icon="docker" href="https://www.docker.com/products/docker-desktop/" />
+</CardGroup>
+
+<AccordionGroup>
+
+  <Accordion icon="node" title="Como Instalar e Configurar o Node 14">
+    <h3>Windows</h3>
+    ```bash Code Example - Windows
+    # Instala o fnm (Fast Node Manager)
+    winget install Schniz.fnm
+
+    # Configura o fnm no PowerShell (executar como Administrador)
+    fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
+
+    # Instala o Node.js (executar dentro do projeto)
+    fnm use --install-if-missing 14
+
+    # Verifica a versão do Node.js (deve exibir "v14.21.3")
+    node -v
+
+    # Verifica a versão do npm (deve exibir "6.14.18")
+    npm -v
+    ```
+
+    <h3>Linux</h3>
+    ```bash Code Example - Linux
+    # Instala o nvm (Node Version Manager)
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+
+    # Instala o Node.js
+    nvm install 14
+
+    # Verifica a versão do Node.js (deve exibir "v14.21.3")
+    node -v
+
+    # Verifica a versão do npm (deve exibir "6.14.18")
+    npm -v
+    ```
+
+    <h3>macOS</h3>
+    ```bash Code Example - macOS
+    # Instala o nvm (Node Version Manager)
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+
+    # Instala o Node.js
+    nvm install 14
+
+    # Verifica a versão do Node.js (deve exibir "v14.21.3")
+    node -v
+
+    # Verifica a versão do npm (deve exibir "6.14.18")
+    npm -v
+    ```
+  </Accordion>
+
+  <Accordion icon="yarn" title="Como Instalar e Configurar o Yarn">
+    <Warning><strong>Aviso:</strong> Certifique-se de que o Node.js já está instalado.</Warning>
+    ```bash Code Example - Yarn
+    npm install --global yarn
+    ```
+  </Accordion>
+
+  <Accordion icon="git" title="Como Instalar e Configurar o Git">
+    <AccordionGroup>
+      <Accordion icon="windows" title="Windows">
+        <h3>Instalação</h3>
+        <p>
+          1. Baixe o Git para Windows: <a href="https://git-scm.com/download/win" target="_blank">https://git-scm.com/download/win</a><br/>
+          2. Execute o instalador (.exe) e siga as instruções.
+        </p>
+        <h3>Configuração Inicial</h3>
+        ```bash Code Example - Git Config (Windows)
+        git config --global user.name "Seu Nome"
+        git config --global user.email "seuemail@exemplo.com"
+        git config --list
+        ```
+      </Accordion>
+      <Accordion icon="linux" title="Linux">
+        <h3>Instalação</h3>
+        <p><strong>Para distribuições baseadas em Debian/Ubuntu:</strong></p>
+        ```bash Code Example - Git (Debian/Ubuntu)
+        sudo apt update
+        sudo apt install git
+        ```
+        <p><strong>Para Fedora:</strong></p>
+        ```bash Code Example - Git (Fedora)
+        sudo dnf install git
+        ```
+        <p><strong>Para Arch Linux:</strong></p>
+        ```bash Code Example - Git (Arch Linux)
+        sudo pacman -S git
+        ```
+        <h3>Configuração Inicial</h3>
+        ```bash Code Example - Git Config (Linux)
+        git config --global user.name "Seu Nome"
+        git config --global user.email "seuemail@exemplo.com"
+        git config --list
+        ```
+      </Accordion>
+      <Accordion icon="apple" title="macOS">
+        <h3>Instalação</h3>
+        <p><strong>Opção 1: Usando o Homebrew</strong></p>
+        ```bash Code Example - Git (macOS Homebrew)
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        brew update
+        brew install git
+        ```
+        <p><strong>Opção 2: Usando o instalador oficial</strong></p>
+        <p>Baixe o Git para macOS: <a href="https://git-scm.com/download/mac" target="_blank">https://git-scm.com/download/mac</a></p>
+        <h3>Configuração Inicial</h3>
+        ```bash Code Example - Git Config (macOS)
+        git config --global user.name "Seu Nome"
+        git config --global user.email "seuemail@exemplo.com"
+        git config --list
+        ```
+      </Accordion>
+    </AccordionGroup>
+  </Accordion>
+
+</AccordionGroup>

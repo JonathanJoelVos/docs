@@ -1,11 +1,11 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "PolvoDocs",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#7C3AED",
+    "light": "#C4B5FD",
+    "dark": "#5B21B6"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -14,22 +14,38 @@
         "tab": "Guides",
         "groups": [
           {
-            "group": "Get Started",
+            "group": "Começo",
             "pages": [
               "introduction",
-              "quickstart",
-              "development"
+              "pre-requisitos"
             ]
           },
           {
-            "group": "Essentials",
+            "group": "Visão Geral",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
+              "visao-geral/o-que-eh-o-polvo",
+              "visao-geral/code",
+              "visao-geral/images",
+              "visao-geral/settings",
+              "visao-geral/navigation",
+              "visao-geral/reusable-snippets"
+            ]
+          },
+          {
+            "group": "Backend",
+            "pages": [
+              "backend/modelagem-uml",
+              "backend/criar-rota",
+              "backend/diagnostico-rotas"
+            ]
+          },
+          {
+            "group": "Frontend",
+            "pages": [
+              "frontend/localforage",
+              "frontend/vuex",
+              "frontend/privileges",
+              "frontend/vuetify2"
             ]
           }
         ]
@@ -88,8 +104,8 @@
     ],
     "primary": {
       "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "label": "Gitlab",
+      "href": "https://code.edu.udesc.br/"
     }
   },
   "footer": {
