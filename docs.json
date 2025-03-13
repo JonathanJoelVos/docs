@@ -11,7 +11,7 @@
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Guias",
         "groups": [
           {
             "group": "Começo",
@@ -24,28 +24,91 @@
             "group": "Visão Geral",
             "pages": [
               "visao-geral/o-que-eh-o-polvo",
-              "visao-geral/code",
-              "visao-geral/images",
-              "visao-geral/settings",
-              "visao-geral/navigation",
-              "visao-geral/reusable-snippets"
+              {
+                "group": "Funcionalidades",
+                "icon":"diagram-project",
+                "pages": [
+                  "visao-geral/principais-funcionalidades/gestao-admnistrativa",
+                  "visao-geral/principais-funcionalidades/estrutura-entidades",
+                  "visao-geral/principais-funcionalidades/mala-direta",
+                  "visao-geral/principais-funcionalidades/trabalho-colaborativo",
+                  "visao-geral/principais-funcionalidades/material-de-apoio-drive"
+                ]
+              }
             ]
           },
           {
-            "group": "Backend",
+            "group": "Back-end",
             "pages": [
-              "backend/modelagem-uml",
-              "backend/criar-rota",
-              "backend/diagnostico-rotas"
+              {
+                "group": "Começando",
+                "icon": "play",
+                "pages": [
+                  "/backend/comecando/pre-requisitos",
+                  "/backend/comecando/instalacao"
+                ]
+              },
+              {
+                "group": "Arquitetura",
+                "icon": "folder",
+                "pages": [
+                  "/backend/arquitetura/visao-geral",
+                  {
+                    "group": "Arquivos de Configuração",
+                    "pages": [
+                      "/backend/arquitetura/arquivos-configuracao/config",
+                      "/backend/arquitetura/arquivos-configuracao/dev-config",
+                      "/backend/arquitetura/arquivos-configuracao/fixtures"
+                    ]
+                  },
+                  {
+                    "group": "Classes",
+                    "pages": [
+                      "/backend/arquitetura/classes/aplication",
+                      "/backend/arquitetura/classes/database",
+                      "/backend/arquitetura/classes/handler-service",
+                      "/backend/arquitetura/classes/manager",
+                      "/backend/arquitetura/classes/models",
+                      "/backend/arquitetura/classes/rest-controller",
+                      "/backend/arquitetura/classes/source"
+                    ]
+                  }
+                ]
+              },
+              {
+                "group": "Tutoriais",
+                "icon": "graduation-cap",
+                "pages": [
+                  "/backend/tutoriais/criar-nova-rota"
+                ]
+              }
             ]
           },
           {
-            "group": "Frontend",
+            "group": "Front-end",
             "pages": [
-              "frontend/localforage",
-              "frontend/vuex",
-              "frontend/privileges",
-              "frontend/vuetify2"
+              {
+                "group": "Começando",
+                "icon": "play",
+                "pages": [
+                  "/frontend/comecando/pre-requisitos",
+                  "/frontend/comecando/instalacao"
+                ]
+              },
+              {
+                "group": "Arquitetura",
+                "icon": "folder",
+                "pages": [
+                  "/frontend/arquitetura/visao-geral"
+                ]
+              },
+              {
+                "group": "Tutoriais",
+                "icon": "graduation-cap",
+                "pages": [
+                  "/frontend/tutoriais/tutorial-1"
+                ]
+              }
             ]
           }
         ]
@@ -74,19 +137,19 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
+          "anchor": "Notion",
+          "href": "https://www.notion.so/Home-d8c1f17c8a4943969d66f604bdf585ed",
           "icon": "book-open-cover"
         },
         {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
+          "anchor": "GitLab",
+          "href": "https://code.edu.udesc.br/",
+          "icon": "gitlab"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Tasks do Polvo",
+          "href": "https://code.edu.udesc.br/esag/labtic/polvo7/polvo7-front/-/boards",
+          "icon": "list-check"
         }
       ]
     }
@@ -96,23 +159,10 @@
     "dark": "/logo/dark.svg"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
     "primary": {
       "type": "button",
       "label": "Gitlab",
       "href": "https://code.edu.udesc.br/"
-    }
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
     }
   }
 }
