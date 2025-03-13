@@ -1,4 +1,141 @@
 ---
-title: Instalação
-description: "Descrição"
+title: 'Instalação'
+description: 'Guia passo a passo para instalar e rodar o backend da aplicação Polvo localmente'
 ---
+
+# Instalação e Execução Local do Backend
+
+Esta página apresenta um guia completo para instalar e executar o backend da aplicação **Polvo** na sua máquina, desde a clonagem do repositório até a verificação do funcionamento do sistema.
+
+## Passo 1: Clonar o Repositório
+
+Clone o repositório do backend hospedado no GitLab:
+
+```bash Code Example - Clonar Repositório
+git clone https://code.edu.udesc.br/esag/labtic/polvo7/polvo7-back-v3a.git
+```
+
+Depois, entre na pasta do projeto e abra-o no VSCode:
+
+```bash Code Example - Abrir Projeto
+cd polvo7-back-v3a
+code .
+```
+
+## Passo 2: Configurar a Versão do Node.js
+
+**Atenção:** É indispensável utilizar a **versão 14 do Node.js** para evitar erros na execução do projeto.
+
+Se você utiliza o **nvm (Node Version Manager)**, abra o terminal dentro do projeto e execute:
+
+```bash Code Example - Usar Node 14 com NVM
+nvm use 14
+```
+
+Caso a versão 14 não esteja instalada, instale-a com:
+
+```bash Code Example - Instalar Node 14 com NVM
+nvm install 14
+nvm use 14
+```
+
+Para mais detalhes, acesse o [tutorial de instalação e configuração do Node 14](#como-instalar-e-configurar-o-node-14).
+
+<Warning>
+Se o Node.js não estiver na versão 14, o projeto não funcionará corretamente.
+</Warning>
+
+## Passo 3: Instalar as Dependências do Projeto
+
+Com a versão correta do Node ativa, instale os módulos necessários com o npm:
+
+```bash Code Example - Instalar Dependências
+npm install
+```
+
+## Passo 4: Iniciar o Banco de Dados com Docker Compose
+
+O backend utiliza Docker Compose para rodar o banco de dados. Siga estes passos:
+
+1. **Verifique** se o Docker está instalado e em execução na sua máquina.
+2. Na raiz do projeto, inicie os containers com:
+   
+   ```bash Code Example - Rodar Docker Compose
+   docker compose up -d
+   ```
+   Em caso de sucesso você verá:
+   <Frame>
+    <img src="/images/docker-compose-start.png"/>
+   </Frame>
+
+3. Para confirmar que o banco está rodando, utilize:
+   
+   ```bash Code Example - Verificar Containers
+   docker ps
+   ```
+   
+   Verifique na lista se o container do banco de dados está ativo:
+   <Frame>
+    <img src="/images/docker-ls.png"/>
+   </Frame>
+
+## Passo 5: Executar o Projeto Localmente
+
+### Entendendo os Scripts do Package.json
+
+O arquivo `package.json` contém scripts que facilitam as tarefas do projeto. Abaixo, cada script está organizado em uma aba para que você possa copiar o comando e entender sua função:
+
+<Tabs>
+  <Tab title="build">
+    ```js
+    npm run build //tsc
+    ```
+    **Descrição:** Compila o código TypeScript para JavaScript.
+  </Tab>
+  <Tab title="dev">
+    ```js
+    npm run dev //node build/index.js --ENVIRONMENT dev
+    ```
+    **Descrição:** Executa o projeto compilado em modo de desenvolvimento.  
+    <Warning>
+        O comando build deve ser rodado anteriormente
+    </Warning>
+  </Tab>
+  <Tab title="prod">
+    ```js
+    npm run prod //node build/index.js --ENVIRONMENT prod
+    ```
+    **Descrição:** Executa o projeto em modo de produção.
+     <Warning>
+        O comando build deve ser rodado anteriormente
+    </Warning>
+  </Tab>
+  <Tab title="build:dev">
+    ```js
+    npm run build:dev //nodemon index.ts --ENVIRONMENT dev
+    ```
+    **Descrição:** Inicia o projeto com o `nodemon`, permitindo que o código seja recompilado e reiniciado automaticamente durante o desenvolvimento.  
+  </Tab>
+</Tabs>
+
+<Tip>
+    O parâmetro -- ENVIRONMENT indica qual arquivo de configuração deve ser carregado. <a href="/backend/arquitetura/arquivos-configuracao/config">Consulte a documentação dos arquivos de configuração para mais detalhes</a>
+</Tip>
+
+### Executando o Backend em Modo de Desenvolvimento
+
+Para rodar o backend localmente em modo de desenvolvimento, utilize o script `build:dev`:
+
+```bash Code Example - Executar Projeto em Dev
+npm run build:dev
+```
+
+Se tudo estiver configurado corretamente, você verá a mensagem:
+
+```
+APP EM DEV. VAMOOO!! 3333
+```
+
+<Check>
+Isso indica que o backend está rodando em `http://localhost:3333/`.
+</Check>
