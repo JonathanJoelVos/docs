@@ -1,4 +1,79 @@
 ---
-title: Gestão Admnistrativa
-description: "Descrição"
+title: 'Gestão Administrativa'
+description: 'Gerenciamento administrativo do Polvo'
 ---
+
+<Note>
+A seção de **Gestão Administrativa** do **Polvo** permite ao administrador controlar e gerenciar todos os aspectos da plataforma, incluindo entidades, usuários e papéis. Todas as operações de exclusão são feitas de forma lógica, alterando o campo `removed` para `true` em vez de excluir os registros permanentemente.
+</Note>
+
+## Gerenciamento de Entidades
+
+O administrador possui controle total sobre as **entidades** que compõem a estrutura acadêmica do sistema. Entre as ações disponíveis estão:
+
+- **Criação de Entidades:** Permite a criação de novas entidades (como Instituição, Centro, Curso, Disciplina, Semestre), definindo um código único, um nome e quais módulos (mala direta, etc.) a entidade vai ter.
+- **Edição de Entidades:** Atualize informações de entidades existentes, como nome, código, etc.
+- **Exclusão (Inativação) de Entidades:** Ao invés de remover permanentemente, o sistema altera o campo `removed` para `true`, mantendo o histórico no banco de dados.
+
+<AccordionGroup>
+  <Accordion icon="pen-to-square" title="Como Gerenciar Entidades">
+    <p>
+      Utilize o painel de gerenciamento para criar, editar e inativar entidades. Essa abordagem preserva o histórico de dados e facilita auditorias futuras.
+    </p>
+  </Accordion>
+</AccordionGroup>
+
+## Gerenciamento de Usuários
+
+Na gestão de usuários, o administrador pode realizar diversas operações:
+
+- **Criação de Usuários:** Cadastre usuários individualmente, definindo informações básicas como nome, CPF, e-mail e associando-os a uma ou mais entidades.
+- **Importação de Usuários:** Importe usuários através de uma planilha Excel que segue um padrão pré-definido. Cada linha da planilha deve conter os campos obrigatórios e a indicação da entidade a qual o usuário será associado.
+- **Edição de Usuários:** Atualize os dados dos usuários e ajuste suas associações com as entidades.
+- **Exclusão (Inativação) de Usuários:** Assim como as entidades, os usuários não são removidos permanentemente; o sistema marca o campo `removed` como `true`, preservando o registro.
+
+<AccordionGroup>
+  <Accordion icon="user" title="Importação de Usuários via Excel">
+    <p>
+      A importação permite o cadastro em massa. A planilha deve seguir um padrão específico, onde cada linha representa um usuário com campos como nome, documento, tipo do documento, email, matrícula e a entidade a ser cadastrado.
+    </p>
+  </Accordion>
+</AccordionGroup>
+
+## Gerenciamento de Papéis e Permissões
+
+O sistema oferece uma abordagem flexível para configurar os papéis e definir as permissões correspondentes:
+
+- **Criação de Papéis:** O administrador pode criar novos papéis para atender às necessidades específicas da instituição.
+- **Atribuição de Permissões:** Ao criar ou editar um papel, defina quais ações poderão ser realizadas (por exemplo, enviar mensagens, gerenciar usuários, criar tópicos etc.).
+- **Atribuição de Papéis aos Usuários:** Durante o processo de criação ou importação, o papel é atribuído ao usuário, determinando seu escopo de atuação dentro da plataforma.
+- **Flexibilidade e Segurança:** Permite customizar os níveis de acesso, garantindo que cada usuário tenha acesso apenas às funcionalidades necessárias para sua função.
+
+<AccordionGroup>
+  <Accordion icon="gear" title="Configuração de Papéis">
+    <p>
+      A configuração é feita por meio de um painel intuitivo, onde o administrador seleciona as permissões específicas para cada papel, promovendo um controle granular sobre o acesso e as ações dos usuários.
+    </p>
+  </Accordion>
+</AccordionGroup>
+
+## Benefícios
+
+<CardGroup cols={2}>
+  <Card title="Controle Total" icon="shield">
+    Gerencie entidades, usuários e papéis com precisão, garantindo a integridade e a segurança do sistema.
+  </Card>
+  <Card title="Histórico Preservado" icon="box-archive">
+    Ao inativar registros, o histórico é mantido no banco de dados, facilitando auditorias e consultas futuras.
+  </Card>
+  <Card title="Importação Facilitada" icon="upload">
+    Cadastre usuários em massa utilizando planilhas Excel padronizadas, otimizando o processo de criação de contas.
+  </Card>
+  <Card title="Personalização de Acessos" icon="user-check">
+    Configure papéis com permissões customizadas, assegurando que cada usuário tenha acesso adequado às suas responsabilidades.
+  </Card>
+</CardGroup>
+
+<Info>
+A **Gestão Administrativa** é fundamental para o bom funcionamento do **Polvo**, permitindo um gerenciamento centralizado e seguro das entidades, usuários e papéis. Essa abordagem garante que as operações sejam realizadas de forma organizada, preservando sempre o histórico dos dados.
+</Info>
