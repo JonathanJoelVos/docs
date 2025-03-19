@@ -28,14 +28,14 @@ code .
 
 Se você utiliza o **nvm (Node Version Manager)**, abra o terminal dentro do projeto e execute:
 
-```bash Code Example - Usar Node 14 com NVM
+```bash Code Example - Instalar Node 14 com NVM
+nvm install 14
 nvm use 14
 ```
 
-Caso a versão 14 não esteja instalada, instale-a com:
+Caso a versão 14 já esteja instalada, use ela com:
 
-```bash Code Example - Instalar Node 14 com NVM
-nvm install 14
+```bash Code Example - Usar Node 14 com NVM
 nvm use 14
 ```
 
@@ -45,7 +45,39 @@ Para mais detalhes, acesse o [tutorial de instalação e configuração do Node 
 Se o Node.js não estiver na versão 14, o projeto não funcionará corretamente.
 </Warning>
 
-## Passo 3: Instalar as Dependências do Projeto
+## Passo 3: Mudar para a branch dev
+
+Antes de iniciar a execução do backend, é necessário garantir que você está trabalhando na branch de desenvolvimento (**dev**). Esta branch contém as últimas atualizações e recursos em fase de testes e desenvolvimento. Para mudar para a branch **dev**, siga os passos abaixo:
+
+1. **Abra o terminal na pasta do projeto.**
+
+2. **Verifique as branches disponíveis:**
+
+   ```bash Code Example - Listar Branches
+   git branch -a
+   ```
+   
+   *Certifique-se de que a branch `dev` está listada. Se ela já estiver disponível localmente, você pode pular para o próximo passo.*
+
+3. **Mude para a branch `dev`:**
+
+   Se a branch **dev** já existir localmente, execute:
+   
+   ```bash Code Example - Mudar para a branch dev
+   git checkout dev
+   ```
+
+4. **Atualize a branch para garantir que você possui as últimas alterações:**
+
+   ```bash Code Example - Atualizar branch dev
+   git pull origin dev
+   ```
+
+<Info>
+Lembre-se de sempre confirmar em qual branch você está antes de iniciar novas alterações ou commits, para evitar conflitos e garantir que está trabalhando na versão correta do projeto.
+</Info>
+
+## Passo 4: Instalar as Dependências do Projeto
 
 Com a versão correta do Node ativa, instale os módulos necessários com o npm:
 
@@ -53,7 +85,7 @@ Com a versão correta do Node ativa, instale os módulos necessários com o npm:
 npm install
 ```
 
-## Passo 4: Iniciar o Banco de Dados com Docker Compose
+## Passo 5: Iniciar o Banco de Dados com Docker Compose
 
 O backend utiliza Docker Compose para rodar o banco de dados. Siga estes passos:
 
@@ -79,48 +111,7 @@ O backend utiliza Docker Compose para rodar o banco de dados. Siga estes passos:
     <img src="/images/docker-ls.png"/>
    </Frame>
 
-## Passo 5: Executar o Projeto Localmente
-
-### Entendendo os Scripts do Package.json
-
-O arquivo `package.json` contém scripts que facilitam as tarefas do projeto. Abaixo, cada script está organizado em uma aba para que você possa copiar o comando e entender sua função:
-
-<Tabs>
-  <Tab title="build">
-    ```js
-    npm run build //tsc
-    ```
-    **Descrição:** Compila o código TypeScript para JavaScript.
-  </Tab>
-  <Tab title="dev">
-    ```js
-    npm run dev //node build/index.js --ENVIRONMENT dev
-    ```
-    **Descrição:** Executa o projeto compilado em modo de desenvolvimento.  
-    <Warning>
-        O comando build deve ser rodado anteriormente
-    </Warning>
-  </Tab>
-  <Tab title="prod">
-    ```js
-    npm run prod //node build/index.js --ENVIRONMENT prod
-    ```
-    **Descrição:** Executa o projeto em modo de produção.
-     <Warning>
-        O comando build deve ser rodado anteriormente
-    </Warning>
-  </Tab>
-  <Tab title="build:dev">
-    ```js
-    npm run build:dev //nodemon index.ts --ENVIRONMENT dev
-    ```
-    **Descrição:** Inicia o projeto com o `nodemon`, permitindo que o código seja recompilado e reiniciado automaticamente durante o desenvolvimento.  
-  </Tab>
-</Tabs>
-
-<Tip>
-    O parâmetro -- ENVIRONMENT indica qual arquivo de configuração deve ser carregado. <a href="/backend/arquitetura/arquivos-configuracao/config">Consulte a documentação dos arquivos de configuração para mais detalhes</a>
-</Tip>
+## Passo 6: Executar o Projeto Localmente
 
 ### Executando o Backend em Modo de Desenvolvimento
 
@@ -139,3 +130,52 @@ APP EM DEV. VAMOOO!! 3333
 <Check>
 Isso indica que o backend está rodando em `http://localhost:3333/`.
 </Check>
+
+### Entendendo os Scripts do Package.json
+
+O arquivo `package.json` contém scripts que facilitam as tarefas do projeto. Abaixo, cada script está organizado em uma aba para que você possa copiar o comando e entender sua função:
+
+<Tabs>
+  <Tab title="build">
+    ```js
+    npm run build 
+    ```
+    **Comando executado:** tsc
+
+    **Descrição:** Compila o código TypeScript para JavaScript.
+  </Tab>
+  <Tab title="dev">
+    ```js
+    npm run dev 
+    ```
+    **Comando executado:** node build/index.js --ENVIRONMENT dev
+
+    **Descrição:** Executa o projeto compilado em modo de desenvolvimento.  
+    <Warning>
+        O comando build deve ser rodado anteriormente
+    </Warning>
+  </Tab>
+  <Tab title="prod">
+    ```js
+    npm run prod 
+    ```
+    **Comando executado:** node build/index.js --ENVIRONMENT prod
+
+    **Descrição:** Executa o projeto em modo de produção.
+     <Warning>
+        O comando build deve ser rodado anteriormente
+    </Warning>
+  </Tab>
+  <Tab title="build:dev">
+    ```js
+    npm run build:dev 
+    ```
+    **Comando executado:** nodemon index.ts --ENVIRONMENT dev
+  
+    **Descrição:** Inicia o projeto com o `nodemon`, permitindo que o código seja recompilado e reiniciado automaticamente durante o desenvolvimento.  
+  </Tab>
+</Tabs>
+
+<Tip>
+    O parâmetro -- ENVIRONMENT indica qual arquivo de configuração deve ser carregado. <a href="/backend/arquitetura/arquivos-configuracao/config">Consulte a documentação dos arquivos de configuração para mais detalhes</a>
+</Tip>

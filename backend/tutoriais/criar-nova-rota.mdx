@@ -1,1 +1,368 @@
-Teste
+---
+title: 'Criando Nova Rota no Backend'
+description: 'Guia passo a passo para criar uma nova rota no backend da aplicação Polvo, com exemplos práticos e explicações detalhadas para iniciantes.'
+---
+
+# Criando Nova Rota no Backend
+
+Neste guia, vamos aprender a **criar uma nova rota** no backend da aplicação **Polvo**. Se você é iniciante, não se preocupe, vamos explicar cada etapa de forma simples. Você verá como adicionar novos endpoints e métodos para lidar com requisições HTTP como **GET**, **POST**, **PUT**, e **DELETE**.
+
+---
+
+## Fluxo Geral de Criação de Rota
+
+A criação de uma nova rota no **Polvo** segue um fluxo organizado, onde cada etapa é importante para garantir que a nova funcionalidade funcione corretamente. Aqui está o fluxo detalhado que você deve seguir:
+
+### 1. **Escolher o Controller**
+Cada rota no backend é atribuída a um **controller**. O controller é responsável por gerenciar a lógica de entrada e saída de dados para cada tipo de requisição HTTP. Ao criar uma nova rota, primeiro você deve decidir qual controller será responsável por ela.
+
+#### Exemplo:
+Se você deseja criar uma rota para gerenciar **usuários**, você escolhe o **`UserRest`** como controller. Este controller será o responsável por todas as ações de usuários, como listar, criar, atualizar e deletar.
+
+### 2. **Adicionar o Endpoint**
+No controller escolhido, você adiciona o **endpoint**. O endpoint é a URL onde a requisição será feita (por exemplo, `/users`). Além disso, é necessário definir o **método HTTP** que a rota irá utilizar (como `GET`, `POST`, `PUT`, ou `DELETE`).
+
+#### Exemplo:
+No `UserRest`, você define a rota `GET /users` para listar todos os usuários. Aqui está um exemplo de como adicionar o endpoint:
+
+```typescript
+import { BasicRest } from "../BasicRest";
+import { User } from "../../handlers/model/User";
+import Handler from "../../handlers/model/User";
+
+export class UserRest extends BasicRest {
+  // Definindo a rota GET para listar todos os usuários
+  protected _handler: User;
+
+  constructor(router) {
+    super(router, Handler);
+
+    this.routes = {
+      get: {
+        '/users': this.listUsers.bind(this), // Endpoint GET para listar usuários
+      },
+    };
+
+    this.wiring();
+  }
+
+  async listUsers(request, response) {
+    const result = await this.handler.listUsers();
+
+    if (result.isError) {
+      return response.status(result.error.status).send(result.error);
+    }
+
+    return response.status(200).send(result.data);
+  }
+}
+```
+
+### 3. **Criar o Método no Handler**
+O **handler** é onde a lógica de negócios é implementada. Quando o controller recebe a requisição, ele chama o método apropriado no handler para processar a solicitação. O handler pode fazer coisas como consultar um banco de dados ou realizar cálculos.
+
+#### Exemplo:
+Aqui, o método `listUsers` no handler `User` irá buscar os usuários no banco de dados e retornar a lista.
+
+```typescript
+// Handler: User
+import { Success, Error } from "../../util/Response";
+
+export class User {
+  // Método no Handler para listar os usuários
+  async listUsers(): Promise<{ isError: boolean; error?: any; data?: any }> {
+    try {
+      const usersData = await this.sendToServer('db.user.read', { query: {} });
+
+      if (!usersData.success || usersData.data.length === 0) {
+        return new Error({
+          message: 'Nenhum usuário encontrado.',
+          status: 404,
+        });
+      }
+
+      return new Success({ users: usersData.data });
+    } catch (error) {
+      return new Error({
+        message: 'Erro ao buscar usuários.',
+        status: 500,
+      });
+    }
+  }
+}
+```
+
+### 4. **Retornar a Resposta**
+Após a execução do método no handler, o controller prepara a resposta para ser enviada de volta ao cliente. A resposta é padronizada em formato JSON e inclui os dados ou mensagens de erro, conforme necessário.
+
+#### Exemplo:
+Quando a rota `GET /users` é chamada, o método `listUsers` no handler retorna uma resposta com a lista de usuários ou um erro.
+
+---
+
+## Como Criar uma Rota GET
+
+As rotas `GET` são usadas para **recuperar dados** do servidor. Vamos criar uma rota que retorna uma lista de todos os usuários da aplicação.
+
+### Passo 1: Criar o Endpoint no Controller
+
+Primeiro, no controller, criamos a rota `GET /users`, que chamará o método `listUsers` para retornar todos os usuários.
+
+```typescript
+// Dentro do Controller: UserRest
+async listUsers(request, response): Promise<void> {
+  const result = await this.handler.listUsers();
+
+  if (result.isError) {
+    return response.status(result.error.status).send(result.error);
+  }
+
+  return response.status(200).send(result.data);
+}
+```
+
+### Passo 2: Criar o Método no Handler
+
+Agora, no handler, o método `listUsers` vai criar a lógica para buscar todos os usuários no banco de dados e retornar os dados.
+
+```typescript
+// Dentro do Handler: User
+import { Success, Error } from "../../util/Response";
+
+export class User {
+  // Método para listar todos os usuários
+  async listUsers(): Promise<{ isError: boolean; error?: any; data?: any }> {
+    try {
+      const usersData = await this.sendToServer('db.user.read', { query: {} });
+
+      if (!usersData.success || usersData.data.length === 0) {
+        return new Error({
+          message: 'Nenhum usuário encontrado.',
+          status: 404,
+        });
+      }
+
+      return new Success({ users: usersData.data });
+    } catch (error) {
+      return new Error({
+        message: 'Erro ao buscar usuários.',
+        status: 500,
+      });
+    }
+  }
+}
+```
+
+---
+
+## Como Criar uma Rota POST
+
+As rotas `POST` são usadas para **criar novos dados**. Vamos criar uma rota para **adicionar um novo usuário**.
+
+### Passo 1: Criar o Endpoint no Controller
+
+No controller, a rota `POST /users` será responsável por capturar os dados do novo usuário e chamar o método `createUser` do handler.
+
+```typescript
+// Dentro do Controller: UserRest
+async createUser(request, response): Promise<void> {
+  const userData = request.body;  // Captura os dados do novo usuário
+
+  const result = await this.handler.createUser(userData);
+
+  if (result.isError) {
+    return response.status(result.error.status).send(result.error);
+  }
+
+  return response.status(201).send(result.data);
+}
+```
+
+### Passo 2: Criar o Método no Handler
+
+Agora, no handler, o método `createUser` vai criar um novo usuário no banco de dados com os dados recebidos.
+
+```typescript
+// Dentro do Handler: User
+import { Success, Error } from "../../util/Response";
+
+export class User {
+  // Método para criar um novo usuário
+  async createUser(userData: { name: string, email: string }): Promise<{ isError: boolean; error?: any; data?: any }> {
+    try {
+      const newUser = await this.sendToServer('db.user.create', { data: userData });
+
+      if (!newUser.success) {
+        return new Error({
+          message: 'Erro ao criar o usuário.',
+          status: 500,
+        });
+      }
+
+      return new Success({ user: newUser.data });
+    } catch (error) {
+      return new Error({
+        message: 'Erro ao criar o usuário.',
+        status: 500,
+      });
+    }
+  }
+}
+```
+
+---
+
+## Como Criar uma Rota PUT
+
+As rotas `PUT` são usadas para **atualizar dados** existentes. Vamos criar uma rota para **atualizar as informações de um usuário**.
+
+### Passo 1: Criar o Endpoint no Controller
+
+No controller, criamos a rota `PUT /users/:id`, onde `:id` é o identificador do usuário a ser atualizado.
+
+```typescript
+// Dentro do Controller: UserRest
+async updateUser(request, response): Promise<void> {
+  const userId = request.params.id;  // Captura o ID do usuário
+  const updatedData = request.body;  // Captura os dados para atualização
+
+  const result = await this.handler.updateUser(userId, updatedData);
+
+  if (result.isError) {
+    return response.status(result.error.status).send(result.error);
+  }
+
+  return response.status(200).send(result.data);
+}
+```
+
+### Passo 2: Criar o Método no Handler
+
+No handler, o método `updateUser` será responsável por atualizar os dados do usuário no banco de dados.
+
+```typescript
+// Dentro do Handler: User
+import { Success, Error } from "../../util/Response";
+
+export class User {
+  // Método para atualizar um usuário
+  async updateUser(userId: string, updatedData: { name?: string; email?: string }): Promise<{ isError: boolean; error?: any; data?: any }> {
+    try {
+      const userExists = await this.sendToServer('db.user.read', { query: { id: userId } });
+
+      if (!userExists.success) {
+        return new Error({
+          message: 'Usuário não encontrado.',
+          status: 404,
+        });
+      }
+
+      const updatedUser = await this.sendToServer('db.user.update', {
+        query: { id: userId },
+        update: updatedData,
+      });
+
+      if (!updatedUser.success) {
+        return new Error({
+          message: 'Erro ao atualizar o usuário.',
+          status: 500,
+        });
+      }
+
+      return new Success({ user: updatedUser.data });
+    } catch (error) {
+      return new Error({
+        message: 'Erro ao atualizar o usuário.',
+        status: 500,
+      });
+    }
+  }
+}
+```
+
+---
+
+## Como Criar uma Rota DELETE
+
+As rotas `DELETE` são usadas para **remover dados**. Vamos criar uma rota para **deletar um usuário**.
+
+### Passo 1: Criar o Endpoint no Controller
+
+No controller, a rota `DELETE /users/:id` será responsável por capturar o ID do usuário a ser deletado.
+
+```typescript
+// Dentro do Controller: UserRest
+async deleteUser(request, response): Promise<void> {
+  const userId = request.params.id;  // Captura o ID do usuário a ser deletado
+
+  const result = await this.handler.deleteUser(userId);
+
+  if (result.isError) {
+    return response.status(result.error.status).send(result.error);
+  }
+
+  return response.status(200).send({ message: 'Usuário deletado com sucesso' });
+}
+```
+
+### Passo 2: Criar o Método no Handler
+
+No handler, o método `deleteUser` será responsável por excluir o usuário do banco de dados.
+
+```typescript
+// Dentro do Handler: User
+import { Success, Error } from "../../util/Response";
+
+export class User {
+  // Método para deletar um usuário
+  async deleteUser(userId: string): Promise<{ isError: boolean; error?: any; data?: any }> {
+    try {
+      const userExists = await this.sendToServer('db.user.read', { query: { id: userId } });
+
+      if (!userExists.success) {
+        return new Error({
+          message: 'Usuário não encontrado.',
+          status: 404,
+        });
+      }
+
+      const deleteResult = await this.sendToServer('db.user.delete', { query: { id: userId } });
+
+      if (!deleteResult.success) {
+        return new Error({
+          message: 'Erro ao deletar o usuário.',
+          status: 500,
+        });
+      }
+
+      return new Success({ message: 'Usuário deletado com sucesso' });
+    } catch (error) {
+      return new Error({
+        message: 'Erro ao deletar o usuário.',
+        status: 500,
+      });
+    }
+  }
+}
+```
+
+---
+
+## Resumo do Fluxo
+
+Aqui está um resumo simplificado do fluxo de criação de rotas:
+
+1. **Escolher o Controller**: Decida qual controller vai lidar com a nova rota.
+2. **Criar o Endpoint**: No controller, crie o endpoint (URL) e associe-o a um método.
+3. **Handler**: No handler, escreva a lógica que interage com o banco de dados ou outros serviços.
+4. **Resposta**: Prepare e envie uma resposta padronizada, geralmente em formato JSON.
+
+---
+
+<Info>
+Esse fluxo organiza a criação de rotas de forma modular, facilitando a manutenção e a escalabilidade do sistema.
+</Info>
+
+<Check>
+Para mais detalhes sobre como interagir com o banco de dados, consulte o [Tutorial: Como fazer CRUD no banco](/content/tutorial/crud).
+</Check>
