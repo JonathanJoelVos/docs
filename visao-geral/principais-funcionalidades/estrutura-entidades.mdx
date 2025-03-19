@@ -1,4 +1,54 @@
 ---
 title: Estrutura de Entidades
-description: "Descrição"
+description: "Sistema de Hirearquia de Entidades do Polvo"
 ---
+
+## Visão Geral
+
+O **Polvo** organiza suas informações por meio de **entidades**, que representam diferentes níveis dentro da estrutura acadêmica. Essa hierarquia permite gerenciar usuários e permissões de forma organizada, garantindo que cada usuário tenha acesso apenas às informações relevantes para seu contexto.
+
+## Hierarquia das Entidades
+
+As entidades do sistema são organizadas em uma estrutura hierárquica, permitindo que níveis superiores contenham múltiplos níveis inferiores. Um exemplo de hierarquia típica pode ser:
+
+```plaintext
+Instituição > Centro > Curso > Disciplina > Semestre
+```
+
+Na prática, para a UDESC, essa estrutura poderia ser:
+
+```plaintext
+UDESC > ESAG > Economia > Microeconomia I > 2024.1
+```
+
+Essa organização garante que disciplinas e semestres estejam sempre associados a um contexto acadêmico adequado, evitando inconsistências e permitindo um controle mais eficiente das permissões dos usuários.
+
+## Tipos de Entidades
+
+O sistema possui os seguintes tipos de entidades:
+
+- **Instituição**: Representa a universidade ou instituição de ensino como um todo.
+- **Centro**: Subdivisão dentro da instituição, agrupando cursos de áreas similares.
+- **Curso**: Programas acadêmicos oferecidos pela instituição.
+- **Disciplina**: Matérias específicas dentro de um curso.
+- **Semestre**: Período em que a disciplina está sendo oferecida.
+
+Cada entidade possui um **código único**, um nome e pode conter diferentes **módulos** (como Mala Direta, Material de Apoio, Trabalho Colaborativo, etc.).
+
+## Regras de Entidades
+
+Algumas regras importantes relacionadas às entidades incluem:
+
+- Cada entidade pode conter múltiplas subentidades (por exemplo, um Curso pode ter várias Disciplinas).
+- Um usuário pode estar vinculado a várias entidades simultaneamente, com papéis diferentes em cada uma.
+- As entidades podem ser **inativadas** ao definir uma data de término, mas nunca totalmente excluídas, preservando o histórico de registros.
+
+## Permissões e Acessos
+
+Os usuários dentro do sistema são associados a entidades específicas e recebem permissões de acordo com seu papel dentro delas. Alguns exemplos:
+
+- **Administradores** podem criar, editar e gerenciar todas as entidades.
+- **Professores** podem acessar apenas as disciplinas e semestres nos quais estão cadastrados.
+- **Alunos** só têm acesso às disciplinas em que estão matriculados.
+
+Essa estrutura garante um controle eficiente de acesso às informações e funcionalidades do sistema, assegurando que cada usuário veja apenas o que é relevante para seu perfil.

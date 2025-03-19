@@ -1,4 +1,63 @@
 ---
-title: Mala Direta
-description: "Descrição"
+title: 'Mala Direta'
+description: 'Sistema de mensagens internas do Polvo'
 ---
+
+<Note>
+O módulo **Mala Direta** funciona como um sistema de mensagens internas, similar a um e-mail, mas com regras de envio baseadas nas permissões do usuário. As mensagens são encaminhadas para o email cadastrado do destinatário, e os anexos acompanham apenas o e-mail, não sendo armazenados na plataforma.
+</Note>
+
+## Funcionamento
+
+No **Mala Direta**, os usuários podem compor e enviar mensagens que serão recebidas em seus e-mails, permitindo uma comunicação rápida e integrada com o email cadastrado. O sistema respeita as seguintes regras:
+
+- **Envio via email:** Ao enviar uma mensagem, o conteúdo e os anexos são encaminhados para o e-mail cadastrado do destinatário.
+- **Anexos:** São enviados apenas através do email, garantindo a integridade e a entrega dos arquivos.
+- **Permissões:** O escopo de envio da mensagem varia de acordo com o perfil do usuário.
+
+<AccordionGroup>
+  <Accordion icon="user" title="Como funciona para Professores">
+    <p>Professores podem enviar mensagens para todos os usuários das entidades nas quais lecionam, facilitando a comunicação com alunos, monitores e demais colaboradores do mesmo curso ou disciplina.</p>
+  </Accordion>
+  <Accordion icon="user-check" title="Como funciona para Coordenadores">
+    <p>Coordenadores possuem um escopo mais amplo, podendo enviar mensagens para usuários de quaisquer entidades, garantindo uma comunicação transversal entre diferentes cursos ou setores.</p>
+  </Accordion>
+  <Accordion icon="user" title="Como funciona para Alunos">
+    <p>Alunos podem enviar mensagens para os colegas dentro da mesma entidade em que estão matriculados, possibilitando a troca de informações e o esclarecimento de dúvidas entre os pares.</p>
+  </Accordion>
+</AccordionGroup>
+
+## Fluxo de Envio de Mensagem
+
+<Steps>
+  <Step title="Composição da Mensagem">
+    <p>O usuário redige a mensagem e pode anexar arquivos que serão enviados via email.</p>
+  </Step>
+  <Step title="Seleção de Destinatários">
+    <p>O sistema permite selecionar os destinatários com base no perfil do remetente e nas entidades às quais ele pertence.</p>
+  </Step>
+  <Step title="Envio">
+    <p>Após a confirmação, a mensagem é enviada pela plataforma e para o email cadastrado dos destinatários, juntamente com os anexos (somente no email), se houver.</p>
+  </Step>
+</Steps>
+
+## Benefícios
+
+<CardGroup cols={2}>
+  <Card title="Integração com Gmail" icon="envelope">
+    As mensagens e anexos são enviados diretamente para o e-mail, garantindo entrega rápida e confiável.
+  </Card>
+  <Card title="Comunicação Segura" icon="shield">
+    O sistema respeita as permissões dos usuários, assegurando que cada perfil tenha um escopo de envio apropriado.
+  </Card>
+  <Card title="Facilidade de Uso" icon="face-smile">
+    Interface intuitiva que permite a composição e o envio de mensagens de forma simples e direta.
+  </Card>
+  <Card title="Flexibilidade" icon="layer-group">
+    Permite a comunicação interna personalizada conforme o papel e a entidade do usuário.
+  </Card>
+</CardGroup>
+
+<Info>
+Utilize o **Mala Direta** para manter a comunicação integrada entre os membros da sua entidade, aproveitando a integração com o Gmail para envio de mensagens e anexos de forma rápida e segur
+</Info>
